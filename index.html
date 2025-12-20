@@ -1,37 +1,44 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Advent Adventure</title>
 
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="December 2025 Festive Hackathon">
-    <meta name="keywords"
-        content="festive, xmas, christmas, advent, adventure, santa, rudolph, reindeer">
+    <!-- Your CSS -->
+    <link rel="stylesheet" href="/assets/css/styles.css" />
+  </head>
+  <body>
+    <!-- Your app -->
+    <div class="wrapper">
+      <div class="header">
+        <div class="title">ADVENT ADVENTURE</div>
+        <p class="sub">Click a day to reveal a Christmas joke</p>
+      </div>
 
-    <link rel="stylesheet" href="assets/css/style.css">
+      <div id="calendar-grid" class="grid"></div>
+    </div>
 
-    <title>December 2025 Festive Hackathon</title>
-</head>
+    <!-- Modal -->
+    <div id="modal" class="modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true">
+    <div class="modal-top">
+      <h2 id="modal-title" class="modal-title">Day</h2>
 
-<body>
+      <div class="modal-actions">
+        <button id="modal-action" class="modal-action" type="button" style="display:none;">
+          Tell me!
+        </button>
+        <button id="modal-close" class="modal-close" type="button">Close</button>
+      </div>
+    </div>
 
-    <header>
+    <p id="modal-body" class="modal-body"></p>
+  </div>
+</div>
 
-        <h1 class="test">Hello World Test</h1>
 
-    </header>
-
-    <section>
-      
-    </section>
-
-    <footer>
-
-    </footer>
-    
-    <script src="assets/javascript/script.js"></script>
-    
-</body>
-
+    <!-- Your JS (IMPORTANT: at the bottom) -->
+    <script type="module" src="/assets/javascript/main.js"></script>
+  </body>
 </html>

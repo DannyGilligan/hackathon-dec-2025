@@ -1,0 +1,261 @@
+/* assets/css/styles.css */
+
+:root {
+  --bg: #0b1b33;
+  --panel: rgba(0, 0, 0, 0.35);
+  --door: #f0423a;
+  --door-border: #0fd18b;
+  --text: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--text);
+  background: radial-gradient(circle at top, #173a6b 0%, var(--bg) 55%, #071021 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.wrapper {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 28px 20px 70px;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 18px;
+}
+
+.title {
+  font-weight: 900;
+  letter-spacing: 1px;
+  margin: 14px 0 6px;
+  font-size: 44px;
+}
+
+.sub {
+  opacity: 0.85;
+  margin: 0;
+}
+
+/* Grid like your screenshot */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+  background: var(--panel);
+  border-radius: 18px;
+  padding: 18px;
+  backdrop-filter: blur(6px);
+}
+
+@media (max-width: 980px) {
+  .grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+@media (max-width: 520px) {
+  .grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+/* Doors */
+.door {
+  position: relative;
+  height: 86px;
+  border-radius: 12px;
+  border: 3px solid var(--door-border);
+  background: var(--door);
+  cursor: pointer;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  transition: transform 120ms ease;
+}
+
+.door:hover { transform: translateY(-2px); }
+.door:active { transform: translateY(0px) scale(0.99); }
+
+.door-number {
+  font-size: 20px;
+}
+
+/* Locked look */
+.door.locked {
+  opacity: 0.55;
+  filter: grayscale(0.35);
+  cursor: not-allowed;
+}
+
+.door.loading::after {
+  content: "…";
+  position: absolute;
+  bottom: 8px;
+  font-weight: 900;
+  opacity: 0.9;
+}
+
+/* Make day 25 centered and bigger (like your image) */
+.door[data-day="25"] {
+  grid-column: 6 / span 2;
+  height: 96px;
+  background: #ffcc3a;
+  color: #132030;
+  border-color: #ff7a00;
+}
+@media (max-width: 980px) {
+  .door[data-day="25"] { grid-column: 3 / span 2; }
+}
+@media (max-width: 520px) {
+  .door[data-day="25"] { grid-column: 2 / span 2; }
+}
+
+/* Modal */
+.modal {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.55);
+  padding: 18px;
+  z-index: 50;
+}
+
+.modal.open { display: flex; }
+
+.modal-card {
+  width: min(720px, 100%);
+  background: rgba(10, 20, 40, 0.92);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: 18px 18px 14px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.modal-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.modal-close {
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.25);
+  color: white;
+  border-radius: 10px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.modal-body {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+  opacity: 0.95;
+}
+
+/* Snowflakes */
+@keyframes snow-fall {
+  0% { transform: translateY(-10vh); }
+  100% { transform: translateY(110vh); }
+}
+
+.snowflake {
+  position: fixed;
+  top: -10vh;
+  pointer-events: none; /* IMPORTANT: doesn't block clicking doors */
+  user-select: none;
+  z-index: 1;
+  animation: snow-fall linear infinite;
+  color: white;
+  text-shadow: 0 2px 10px rgba(255,255,255,0.25);
+}
+
+
+.door {
+  position: relative;
+  height: 92px;
+  border-radius: 14px;
+  border: 3px solid var(--door-border);
+  background: linear-gradient(180deg, #ff5148 0%, #d9342e 100%);
+  cursor: pointer;
+  color: white;
+  display: grid;
+  place-items: center;
+  font-weight: 900;
+  transition: transform 120ms ease, filter 120ms ease;
+  box-shadow: 0 10px 22px rgba(0,0,0,0.25);
+}
+
+.door:hover { transform: translateY(-2px); filter: brightness(1.03); }
+
+.door-icon {
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+  opacity: 0.85;
+  font-size: 14px;
+}
+
+.door.opened {
+  background: linear-gradient(180deg, #1fd18c 0%, #0aa36b 100%);
+  border-color: rgba(255,255,255,0.65);
+}
+
+.door.opened .door-icon { content: "✅"; opacity: 1; }
+
+.door.loading::after {
+  content: "Loading…";
+  position: absolute;
+  left: 10px;
+  bottom: 8px;
+  font-weight: 800;
+  font-size: 12px;
+  opacity: 0.95;
+}
+
+/* MODALS */
+.modal-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.modal-action {
+  background: rgba(255, 204, 58, 0.95);
+  color: #132030;
+  border: 0;
+  border-radius: 10px;
+  padding: 8px 12px;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+
+/* SNOW FALL / SNOW DRIFT */
+@keyframes snow-fall {
+  0% { transform: translateY(-10vh) translateX(0); }
+  100% { transform: translateY(110vh) translateX(var(--drift, 0px)); }
+}
+
+.snowflake {
+  position: fixed;
+  top: -10vh;
+  pointer-events: none;
+  user-select: none;
+  z-index: 1;
+  animation: snow-fall linear infinite;
+  color: white;
+  text-shadow: 0 2px 10px rgba(255,255,255,0.25);
+}
