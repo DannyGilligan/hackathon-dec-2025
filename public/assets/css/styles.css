@@ -14,12 +14,25 @@ body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   color: var(--text);
-  background: radial-gradient(circle at top, #173a6b 0%, var(--bg) 55%, #071021 100%);
   min-height: 100vh;
   overflow-x: hidden;
+
+  /* Snowy mountain background image */
+  background:
+    linear-gradient(
+      rgba(10, 20, 40, 0.65),
+      rgba(10, 20, 40, 0.85)
+    ),
+    url("/assets/images/xmasheroimage.png");
+    background-size: cover;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 .wrapper {
+  position: relative
+  z-index: 10;
   max-width: 1100px;
   margin: 0 auto;
   padding: 28px 20px 70px;
