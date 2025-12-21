@@ -302,7 +302,19 @@ body {
 
 @keyframes sparkle {
   0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.6) rotate(0deg); }
-  30%  { opacity: 0.9; transform: translate(-50%,
+  30%  { opacity: 0.9; transform: translate(-50%, -50%) scale(1.15) rotate(20deg); }
+  60%  { opacity: 0.2; transform: translate(-50%, -50%) scale(0.9) rotate(40deg); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.6) rotate(65deg); }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .twinkle-bulb,
+  .twinkle-sparkle {
+    animation: none !important;
+    opacity: 0.6;
+  }
+}
 
 
 
@@ -340,3 +352,25 @@ body {
   color: white;
   text-shadow: 0 2px 10px rgba(255,255,255,0.25);
 }
+
+/* MUSIC TOGGLE BUTTON */
+.music-toggle {
+  position: fixed;
+  top: 14px;
+  right: 14px;
+  z-index: 30;
+
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(10, 20, 40, 0.55);
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+
+.music-toggle:hover {
+  filter: brightness(1.1);
+}
+
