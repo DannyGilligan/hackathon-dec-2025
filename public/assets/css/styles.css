@@ -25,9 +25,10 @@ body {
     ),
     url("/assets/images/xmasheroimage.png");
     background-size: cover;
-    background-position: center bottom;
+    background-position: center 0px;
     background-repeat: no-repeat;
     background-attachment: fixed;
+    
 }
 
 .wrapper {
@@ -237,6 +238,73 @@ body {
   font-size: 12px;
   opacity: 0.95;
 }
+
+/* Twinkle Lights */
+/* Festive twinkling light overlay */
+#twinkle-layer {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 170px;          /* only covers where the lights are */
+  pointer-events: none;
+  z-index: 5;             /* above background + snow */
+}
+
+.twinkle-bulb {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  width: var(--size);
+  height: var(--size);
+  border-radius: 999px;
+
+  background: radial-gradient(circle at 30% 30%,
+    rgba(255,255,255,0.95),
+    var(--color) 45%,
+    rgba(0,0,0,0) 70%
+  );
+
+  filter: drop-shadow(0 0 10px var(--glow));
+  opacity: 0.35;
+  transform: translate(-50%, -50%) scale(0.85);
+
+  animation:
+    twinkle-flicker var(--dur) ease-in-out infinite,
+    twinkle-pop 6s ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes twinkle-flicker {
+  0%, 100% { opacity: 0.25; transform: translate(-50%, -50%) scale(0.78); }
+  30%      { opacity: 0.95; transform: translate(-50%, -50%) scale(1.05); }
+  55%      { opacity: 0.45; transform: translate(-50%, -50%) scale(0.88); }
+  75%      { opacity: 1.00; transform: translate(-50%, -50%) scale(1.15); }
+}
+
+@keyframes twinkle-pop {
+  0%, 100% { filter: drop-shadow(0 0 10px var(--glow)); }
+  50%      { filter: drop-shadow(0 0 18px var(--glow)); }
+}
+
+/* Occasional sparkles */
+.twinkle-sparkle {
+  position: absolute;
+  top: var(--y);
+  left: var(--x);
+  transform: translate(-50%, -50%);
+  font-size: var(--size);
+  opacity: 0;
+  animation: sparkle 1.8s ease-in-out infinite;
+  animation-delay: var(--delay);
+  filter: drop-shadow(0 0 10px rgba(255,255,255,0.45));
+}
+
+@keyframes sparkle {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.6) rotate(0deg); }
+  30%  { opacity: 0.9; transform: translate(-50%,
+
+
 
 /* MODALS */
 .modal-actions {

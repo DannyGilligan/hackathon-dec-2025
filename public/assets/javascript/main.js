@@ -179,3 +179,79 @@ if (!prefersReducedMotion) {
 
   setInterval(createSnowflake, densityMs);
 }
+
+// --------------------
+// Festive Twinkling Lights Overlay
+// --------------------
+(function initTwinkleLayer() {
+  const layer = document.querySelector("#twinkle-layer");
+  if (!layer) return;
+
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduced) return;
+
+  // More bulbs on wide screens, fewer on small laptops
+  const width = window.innerWidth;
+  const bulbCount = width < 700 ? 18 : width < 1100 ? 26 : 34;
+  const sparkleCount = width < 700 ? 6 : 10;
+
+  const colors = [
+    { c: "rgba(255, 74, 74, 0.95)", g: "rgba(255, 120, 120, 0.9)" },  // red
+    { c: "rgba(62, 220, 255, 0.95)", g: "rgba(140, 235, 255, 0.9)" }, // blue
+    { c: "rgba(255, 214, 66, 0.95)", g: "rgba(255, 234, 140, 0.9)" }, // yellow
+    { c: "rgba(120, 255, 160, 0.95)", g: "rgba(170, 255, 200, 0.9)" },// green
+    { c: "rgba(255, 120, 210, 0.95)", g: "rgba(255, 180, 235, 0.9)" } // pink
+  ];
+
+  // Clear old bulbs on hot reload
+  layer.innerHTML = "";
+
+  // Place bulbs along a gentle curve (like a hanging string)
+  for (let i = 0; i < bulbCount; i++) {
+    const t = i / (bulbCount - 1);
+
+    // x across the screen with a bit of randomness
+    const x = (6 + t * 88) + (Math.random() * 2 - 1) * 1.5;
+
+    // curve: lower in the middle
+    const curve = Math.sin(t * Math.PI) * 26; // sag
+    const y = 26 + curve + (Math.random() * 2 - 1) * 4;
+
+    const size = 8 + Math.random() * 10; // px
+    const dur = 1.6 + Math.random() * 2.8; // seconds
+    const delay = (-Math.random() * 4).toFixed(2) + "s";
+
+    const pick = colors[Math.floor(Math.random() * colors.length)];
+
+    const bulb = document.createElement("div");
+    bulb.className = "twinkle-bulb";
+    bulb.style.setProperty("--x", `${x}vw`);
+    bulb.style.setProperty("--y", `${y}px`);
+    bulb.style.setProperty("--size", `${size}px`);
+    bulb.style.setProperty("--dur", `${dur.toFixed(2)}s`);
+    bulb.style.setProperty("--delay", delay);
+    bulb.style.setProperty("--color", pick.c);
+    bulb.style.setProperty("--glow", pick.g);
+
+    layer.appendChild(bulb);
+  }
+
+  // Add a few sparkles for “festive”
+  const sparkleChars = ["✦", "✧", "✨"];
+  for (let i = 0; i < sparkleCount; i++) {
+    const x = 10 + Math.random() * 80;
+    const y = 20 + Math.random() * 70;
+    const size = 12 + Math.random() * 10;
+    const delay = (-Math.random() * 6).toFixed(2) + "s";
+
+    const sp = document.createElement("div");
+    sp.className = "twinkle-sparkle";
+    sp.textContent = sparkleChars[Math.floor(Math.random() * sparkleChars.length)];
+    sp.style.setProperty("--x", `${x}vw`);
+    sp.style.setProperty("--y", `${y}px`);
+    sp.style.setProperty("--size", `${size}px`);
+    sp.style.setProperty("--delay", delay);
+
+    layer.appendChild(sp);
+  }
+})();
