@@ -3,12 +3,29 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Advent Adventure</title>
+    <title>Advent Adventure - Home</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/assets/favicon/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png" />
 
     <!-- Your CSS -->
     <link rel="stylesheet" href="/assets/css/style.css" />
   </head>
   <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+      <div class="nav-container">
+        <div class="nav-brand">🎄 Advent Adventure</div>
+        <div class="nav-links">
+          <a href="index.html" class="nav-link active">Home</a>
+          <a href="calendar.html" class="nav-link">Advent's Adventure</a>
+          <a href="team.html" class="nav-link">Meet the Team</a>
+        </div>
+      </div>
+    </nav>
+
     <!-- Music toggle -->
     <button id="music-toggle" class="music-toggle" type="button" aria-pressed="false">
   🔇 Music
@@ -18,38 +35,51 @@
   <source src="/assets/audio/festive.mp3" type="audio/mpeg" />
 </audio>
 
-    <!-- Your app -->
+    <!-- Home Page Content -->
     <div class="wrapper">
-      <div class="header">
-        <div class="title">ADVENT ADVENTURE</div>
-        <p class="sub">Click a day to reveal a Christmas joke</p>
-      </div>
+      <div class="home-content">
+        <div class="hero-section">
+          <h1 class="hero-title">Welcome to Advent Adventure!</h1>
+          <p class="hero-subtitle">Your Daily Dose of Holiday Cheer</p>
+        </div>
 
-      <div id="calendar-grid" class="grid"></div>
+        <div class="about-section">
+          <div class="about-card">
+            <h2>🎅 What is Advent Adventure?</h2>
+            <p>
+              Advent Adventure is an interactive Christmas countdown calendar that brings joy and laughter 
+              to your holiday season! Each day from December 1st to December 25th, unlock a new door to 
+              discover a festive Christmas joke that will brighten your day.
+            </p>
+          </div>
+
+          <div class="about-card">
+            <h2>🎁 How It Works</h2>
+            <p>
+              Simply visit our Advent's Adventure page and click on any unlocked day to reveal your daily 
+              dose of holiday humor. Days unlock automatically as December progresses, building excitement 
+              as you count down to Christmas Day!
+            </p>
+          </div>
+
+          <div class="about-card">
+            <h2>❄️ Spread the Joy</h2>
+            <p>
+              Share your favorite jokes with family and friends, and make this holiday season extra special. 
+              Whether you're looking for a quick laugh or want to start a new family tradition, Advent 
+              Adventure is here to make your holidays merrier!
+            </p>
+          </div>
+        </div>
+
+        <div class="cta-section">
+          <a href="calendar.html" class="cta-button">Start Your Adventure! 🎄</a>
+        </div>
+      </div>
     </div>
 
     <!-- twinkle lights-->
      <div id="twinkle-layer" aria-hidden="true"></div>
-
-
-    <!-- Modal -->
-    <div id="modal" class="modal" aria-hidden="true">
-  <div class="modal-card" role="dialog" aria-modal="true">
-    <div class="modal-top">
-      <h2 id="modal-title" class="modal-title">Day</h2>
-
-      <div class="modal-actions">
-        <button id="modal-action" class="modal-action" type="button" style="display:none;">
-          Tell me!
-        </button>
-        <button id="modal-close" class="modal-close" type="button">Close</button>
-      </div>
-    </div>
-
-    <p id="modal-body" class="modal-body"></p>
-  </div>
-</div>
-
 
     <!-- Your JS (IMPORTANT: at the bottom) -->
     <script type="module" src="/assets/javascript/main.js"></script>
