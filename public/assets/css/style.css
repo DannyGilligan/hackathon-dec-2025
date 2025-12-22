@@ -629,7 +629,7 @@ body {
 /* MUSIC TOGGLE BUTTON */
 .music-toggle {
   position: fixed;
-  top: 14px;
+  top: 90px;
   right: 14px;
   z-index: 30;
 
