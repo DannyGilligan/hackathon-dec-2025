@@ -30,7 +30,10 @@ function storageKey(day) {
 
 function markDoorOpened(day) {
   const door = grid.querySelector(`button[data-day="${day}"]`);
-  if (door) door.classList.add("opened");
+  if (door) {
+    door.classList.add("opened");
+    door.classList.add("flipped");
+  }
 }
 
 async function fetchJoke() {
@@ -111,18 +114,26 @@ function buildCalendar() {
     }
 
     const saved = localStorage.getItem(storageKey(day));
-    if (saved) door.classList.add("opened");
+    const isOpened = !!saved;
+    if (isOpened) door.classList.add("opened");
 
     door.innerHTML = `
       <span class="door-number">${day}</span>
-      <span class="door-icon" aria-hidden="true">🎁</span>
+      <span class="door-icon" aria-hidden="true">${isOpened ? '✨' : '🎁'}</span>
     `;
 
     door.addEventListener("click", async () => {
+      // Trigger flip animation
+      door.classList.add("flipped");
+      
+      // Change icon to sparkles
+      const icon = door.querySelector(".door-icon");
+      if (icon) icon.textContent = "✨";
+      
       // If already opened, show saved joke instantly
       const cached = localStorage.getItem(storageKey(day));
       if (cached) {
-        showJokeInModal(day, JSON.parse(cached));
+        setTimeout(() => showJokeInModal(day, JSON.parse(cached)), 300);
         return;
       }
 
@@ -131,11 +142,13 @@ function buildCalendar() {
         const jokeObj = await fetchJoke();
         localStorage.setItem(storageKey(day), JSON.stringify(jokeObj));
         markDoorOpened(day);
-        showJokeInModal(day, jokeObj);
+        setTimeout(() => showJokeInModal(day, jokeObj), 300);
       } catch {
-        openModal(`Day ${day}`);
-        modalBody.textContent = "Couldn’t load a joke. Try again.";
-        modalAction.style.display = "none";
+        setTimeout(() => {
+          openModal(`Day ${day}`);
+          modalBody.textContent = "Couldn't load a joke. Try again.";
+          modalAction.style.display = "none";
+        }, 300);
       } finally {
         door.classList.remove("loading");
       }
@@ -192,8 +205,8 @@ if (!prefersReducedMotion) {
 
   // More bulbs on wide screens, fewer on small laptops
   const width = window.innerWidth;
-  const bulbCount = width < 700 ? 18 : width < 1100 ? 26 : 34;
-  const sparkleCount = width < 700 ? 6 : 10;
+  const bulbCount = width < 700 ? 24 : width < 1100 ? 36 : 48;
+  const sparkleCount = width < 700 ? 10 : 15;
 
   const colors = [
     { c: "rgba(255, 74, 74, 0.95)", g: "rgba(255, 120, 120, 0.9)" },  // red
@@ -211,13 +224,13 @@ if (!prefersReducedMotion) {
     const t = i / (bulbCount - 1);
 
     // x across the screen with a bit of randomness
-    const x = (6 + t * 88) + (Math.random() * 2 - 1) * 1.5;
+    const x = (3 + t * 94) + (Math.random() * 2 - 1) * 1.5;
 
     // curve: lower in the middle
     const curve = Math.sin(t * Math.PI) * 26; // sag
     const y = 26 + curve + (Math.random() * 2 - 1) * 4;
 
-    const size = 8 + Math.random() * 10; // px
+    const size = 14 + Math.random() * 12; // px
     const dur = 1.6 + Math.random() * 2.8; // seconds
     const delay = (-Math.random() * 4).toFixed(2) + "s";
 
