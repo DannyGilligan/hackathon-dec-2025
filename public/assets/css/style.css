@@ -20,7 +20,7 @@ body {
   overflow-x: hidden;
 
   /* Snowy mountain background image */
-  background-image: url("/assets/images/festivehackathon.webp");
+  background-image: url("../images/festivehackathon.webp");
   background-size: cover;
   background-position: center bottom;
   background-repeat: no-repeat;
