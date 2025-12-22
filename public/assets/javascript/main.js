@@ -61,23 +61,26 @@ function closeModal() {
   modalAction.style.display = "none";
 }
 
-modalClose.addEventListener("click", closeModal);
-modal.addEventListener("click", (e) => {
-  if (e.target === modal) closeModal();
-});
-window.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") closeModal();
-});
+// Only set up modal listeners if modal exists (calendar page)
+if (modal && modalClose && modalAction) {
+  modalClose.addEventListener("click", closeModal);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeModal();
+  });
 
-modalAction.addEventListener("click", () => {
-  if (!currentJoke) return;
+  modalAction.addEventListener("click", () => {
+    if (!currentJoke) return;
 
-  // Reveal punchline for twopart
-  if (currentJoke.type === "twopart") {
-    modalBody.textContent = currentJoke.delivery;
-    modalAction.style.display = "none";
-  }
-});
+    // Reveal punchline for twopart
+    if (currentJoke.type === "twopart") {
+      modalBody.textContent = currentJoke.delivery;
+      modalAction.style.display = "none";
+    }
+  });
+}
 
 function showJokeInModal(day, jokeObj) {
   currentJoke = jokeObj;
@@ -145,7 +148,10 @@ function buildCalendar() {
   }
 }
 
-buildCalendar();
+// Only build calendar if grid exists (calendar page)
+if (grid) {
+  buildCalendar();
+}
 
 // --------------------
 // Snowfall (tuned)
