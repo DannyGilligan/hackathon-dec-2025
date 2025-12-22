@@ -328,3 +328,27 @@ if (!prefersReducedMotion) {
     setUI(false);
   }
 })();
+
+// --------------------
+// Reset Button
+// --------------------
+(function initResetButton() {
+  const resetBtn = document.querySelector("#reset-button");
+  if (!resetBtn) return;
+
+  function resetCards() {
+    if (confirm("Are you sure you want to reset all cards? This will clear all opened doors.")) {
+      // Clear all advent joke data from localStorage
+      for (let day = 1; day <= DOOR_COUNT; day++) {
+        localStorage.removeItem(storageKey(day));
+      }
+      
+      // Rebuild the calendar to show all cards as unopened
+      buildCalendar();
+      
+      alert("All cards have been reset!");
+    }
+  }
+
+  resetBtn.addEventListener("click", resetCards);
+})();
