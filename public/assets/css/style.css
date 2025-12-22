@@ -20,17 +20,11 @@ body {
   overflow-x: hidden;
 
   /* Snowy mountain background image */
-  background:
-    linear-gradient(
-      rgba(10, 20, 40, 0.65),
-      rgba(10, 20, 40, 0.85)
-    ),
-    url("/assets/images/xmasheroimage.png");
-    background-size: cover;
-    background-position: center 0px;
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    
+  background-image: url("/assets/images/festivehackathon.webp");
+  background-size: cover;
+  background-position: center bottom;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 /* Navigation Bar */
@@ -138,17 +132,44 @@ body {
   height: 86px;
   border-radius: 12px;
   border: 3px solid var(--door-border);
-  background: var(--door);
   cursor: pointer;
   color: white;
   display: grid;
   place-items: center;
   font-weight: 800;
-  transition: transform 120ms ease;
+  transition: all 0.6s ease;
+  transform-origin: center center;
+  transform-style: preserve-3d;
 }
 
-.door:hover { transform: translateY(-2px); }
-.door:active { transform: translateY(0px) scale(0.99); }
+.door:not(.opened) {
+  background: linear-gradient(180deg, #1fd18c 0%, #0aa36b 100%) !important;
+}
+
+.door.flipped {
+  transform: rotateX(180deg);
+}
+
+.door.flipped .door-number,
+.door.flipped .door-icon {
+  transform: rotateX(180deg);
+}
+
+.door:hover { 
+  transform: translateY(-2px); 
+}
+
+.door.flipped:hover { 
+  transform: rotateX(180deg) translateY(-2px); 
+}
+
+.door:active { 
+  transform: translateY(0px) scale(0.99); 
+}
+
+.door.flipped:active { 
+  transform: rotateX(180deg) scale(0.99); 
+}
 
 .door-number {
   font-size: 20px;
@@ -255,22 +276,7 @@ body {
 }
 
 
-.door {
-  position: relative;
-  height: 92px;
-  border-radius: 14px;
-  border: 3px solid var(--door-border);
-  background: linear-gradient(180deg, #ff5148 0%, #d9342e 100%);
-  cursor: pointer;
-  color: white;
-  display: grid;
-  place-items: center;
-  font-weight: 900;
-  transition: transform 120ms ease, filter 120ms ease;
-  box-shadow: 0 10px 22px rgba(0,0,0,0.25);
-}
 
-.door:hover { transform: translateY(-2px); filter: brightness(1.03); }
 
 .door-icon {
   position: absolute;
@@ -281,11 +287,13 @@ body {
 }
 
 .door.opened {
-  background: linear-gradient(180deg, #1fd18c 0%, #0aa36b 100%);
+  background: #f0423a !important;
   border-color: rgba(255,255,255,0.65);
 }
 
-.door.opened .door-icon { content: "✅"; opacity: 1; }
+.door.opened .door-icon::before { 
+  content: "✅"; 
+}
 
 .door.loading::after {
   content: "Loading…";
