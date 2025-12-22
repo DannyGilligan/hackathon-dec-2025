@@ -15,7 +15,7 @@ A festive Christmas advent calendar web application featuring daily jokes, inter
 - 💾 **Progress Saving** - Remembers which doors you've opened
 - ♿ **Accessible** - Full keyboard navigation and ARIA labels
 
-## 🚀 Quick Start
+## 🚀 Quick Start 
 
 ### Prerequisites
 - Node.js (v14 or higher)
