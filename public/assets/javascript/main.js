@@ -255,3 +255,57 @@ if (!prefersReducedMotion) {
     layer.appendChild(sp);
   }
 })();
+
+// --------------------
+// Festive Music Toggle
+// --------------------
+(function initMusic() {
+  const audio = document.querySelector("#bg-music");
+  const btn = document.querySelector("#music-toggle");
+  if (!audio || !btn) return;
+
+  const KEY = "advent-music-enabled";
+
+  function setUI(enabled) {
+    btn.setAttribute("aria-pressed", String(enabled));
+    btn.textContent = enabled ? "🔊 Music" : "🔇 Music";
+  }
+
+  async function enableMusic() {
+    try {
+      audio.volume = 0.25; // nice background level
+      await audio.play();  // must be triggered by user click
+      localStorage.setItem(KEY, "1");
+      setUI(true);
+    } catch {
+      // If play fails, keep it off
+      localStorage.setItem(KEY, "0");
+      setUI(false);
+    }
+  }
+
+  function disableMusic() {
+    audio.pause();
+    localStorage.setItem(KEY, "0");
+    setUI(false);
+  }
+
+  btn.addEventListener("click", async () => {
+    if (audio.paused) await enableMusic();
+    else disableMusic();
+  });
+
+  // Remember preference (but don't autoplay if browser blocks it)
+  const saved = localStorage.getItem(KEY);
+  if (saved === "1") {
+    setUI(true);
+    // Try to resume only after first user interaction
+    const resumeOnce = async () => {
+      window.removeEventListener("pointerdown", resumeOnce);
+      await enableMusic();
+    };
+    window.addEventListener("pointerdown", resumeOnce, { once: true });
+  } else {
+    setUI(false);
+  }
+})();
