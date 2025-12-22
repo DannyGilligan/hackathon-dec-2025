@@ -562,6 +562,14 @@ body {
     width: 100%;
     justify-content: center;
   }
+  .music-toggle {
+    position: relative;
+    top: auto;
+    right: auto;
+    margin: 12px auto 0;
+    display: flex;
+    justify-content: center;
+  }
 }
 
 .github-link {
