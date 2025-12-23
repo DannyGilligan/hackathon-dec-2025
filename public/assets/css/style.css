@@ -1,4 +1,3 @@
-/* assets/css/styles.css */
 
 :root {
   --bg: #0b1b33;
@@ -108,7 +107,7 @@ body {
   margin: 0;
 }
 
-/* Grid like your screenshot */
+/* Grid  */
 .grid {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -190,7 +189,7 @@ body {
   opacity: 0.9;
 }
 
-/* Make day 25 centered and bigger (like your image) */
+/* Make day 25 centered and bigger  */
 .door[data-day="25"] {
   grid-column: 6 / span 2;
   height: 96px;
@@ -562,7 +561,23 @@ body {
     width: 100%;
     justify-content: center;
   }
+
+  .music-container {
+    position: relative;     /* no longer fixed */
+    top: auto;
+    right: auto;
+    margin: 12px auto 0;    /* BELOW nav */
+    display: flex;
+    justify-content: center;
+  }
+
+  .music-toggle {
+    width: auto;
+    padding: 10px 16px;
+    font-size: 0.95rem;
+  }
 }
+
 
 .github-link {
   display: inline-flex;
@@ -627,6 +642,17 @@ body {
 }
 
 /* MUSIC TOGGLE BUTTON */
+.music-container {
+  position: fixed;
+  top: 90px;
+  right: 14px;
+  z-index: 9999;
+
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
 .music-toggle {
   position: fixed;
   top: 90px;
@@ -683,5 +709,61 @@ body {
 .reset-button-inline:hover {
   filter: brightness(1.1);
   transform: scale(1.05);
+}
+
+/* Mobile: put controls below nav in normal flow */
+/* =========================
+   OVERRIDES: Music + Reset controls responsive fix
+   Paste at END of file
+   ========================= */
+
+/* Make container the single source of positioning */
+.music-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* MOBILE: below navbar, centered, in normal flow */
+@media (max-width: 768px) {
+  .music-container {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+
+    width: 100%;
+    margin: 12px auto 0;
+    padding: 0 16px;
+
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* IMPORTANT: stop any fixed positioning on buttons on mobile */
+  .music-toggle,
+  .reset-button {
+    position: static !important;
+    top: auto !important;
+    right: auto !important;
+    left: auto !important;
+    bottom: auto !important;
+  }
+}
+
+/* SMALL PHONES: stack vertically and keep them tidy */
+@media (max-width: 480px) {
+  .music-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .music-toggle,
+  .reset-button {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
 }
 
