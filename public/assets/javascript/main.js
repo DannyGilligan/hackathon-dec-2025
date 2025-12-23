@@ -337,7 +337,14 @@ if (!prefersReducedMotion) {
   if (!resetBtn) return;
 
   function resetCards() {
-    if (confirm("Are you sure you want to reset all cards? This will clear all opened doors.")) {
+    // Use the existing modal for confirmation
+    openModal("Reset All Cards");
+    modalBody.textContent = "Are you sure you want to reset all cards? This will clear all opened doors.";
+    modalAction.textContent = "Reset";
+    modalAction.style.display = "inline-flex";
+    
+    // Handle reset confirmation
+    const handleReset = () => {
       // Clear all advent joke data from localStorage
       for (let day = 1; day <= DOOR_COUNT; day++) {
         localStorage.removeItem(storageKey(day));
@@ -346,8 +353,16 @@ if (!prefersReducedMotion) {
       // Rebuild the calendar to show all cards as unopened
       buildCalendar();
       
-      alert("All cards have been reset!");
-    }
+      // Show success message
+      modalBody.textContent = "All cards have been reset!";
+      modalAction.style.display = "none";
+      
+      // Remove the event listener
+      modalAction.removeEventListener("click", handleReset);
+    };
+    
+    // Add event listener for reset action
+    modalAction.addEventListener("click", handleReset);
   }
 
   resetBtn.addEventListener("click", resetCards);
